@@ -18,23 +18,23 @@
 <style>
 /* Layout: schmale Kopfzeile mit Reitern, darunter Karten je Bereich (Eingang, Heute, Next steps), Warten auf nach Gruppen, Themen nach Kürzel. */
 :root{
-  --bg:#eef1f5; --surface:#ffffff; --ink:#1a2330; --muted:#5b6878; --line:#d8dee6;
-  --accent:#2c59d6; --accent-ink:#ffffff; --mark:#fbe69a; --done:#2b8a57; --warn:#c2410c; --chip:#e6ebf3;
+  --bg:#e8f2fd; --surface:#ffffff; --ink:#1a2330; --muted:#52677e; --line:#cbddf1;
+  --accent:#2c59d6; --accent-ink:#ffffff; --mark:#fbe69a; --done:#2b8a57; --warn:#c2410c; --chip:#d9e8f8; --tag-bg-s:80%; --tag-bg-l:89%; --tag-fg-s:60%; --tag-fg-l:26%;
   --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
   --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#12171f; --surface:#1a212c; --ink:#e6ebf2; --muted:#93a0b2; --line:#2b3442; --accent:#7ea2ff; --accent-ink:#0f1a33;
-  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; color-scheme:dark}}
+  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; --tag-bg-s:38%; --tag-bg-l:25%; --tag-fg-s:80%; --tag-fg-l:84%; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#12171f; --surface:#1a212c; --ink:#e6ebf2; --muted:#93a0b2; --line:#2b3442; --accent:#7ea2ff; --accent-ink:#0f1a33;
-  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; color-scheme:dark}
+  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; --tag-bg-s:38%; --tag-bg-l:25%; --tag-fg-s:80%; --tag-fg-l:84%; color-scheme:dark}
 html{color-scheme:light dark}
 body{margin:0}[hidden]{display:none!important}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:400 15px/1.45 var(--f-body);padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px));padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(48px + env(safe-area-inset-bottom,0px))}
-.wrap{max-width:1120px;margin-inline:auto}
+.wrap{max-width:860px;margin-inline:auto}
 header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;margin-bottom:18px}
 h1{font:700 26px/1.1 var(--f-display);margin:0;letter-spacing:-.01em}
 .date{color:var(--muted);font-family:var(--f-mono);font-size:13px;margin-top:4px}
@@ -46,7 +46,7 @@ nav .count{font:400 11px var(--f-mono);background:var(--chip);border-radius:9px;
 button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .banner{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--chip);border-radius:6px;padding:8px 12px;margin-bottom:16px;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;align-items:start}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 14px 10px;min-width:0}
 .card h2,.group h2{font:700 15px var(--f-display);margin:0 0 8px;display:flex;align-items:center;gap:8px;letter-spacing:.01em}
 .card h2 small,.group h2 small{font:400 11px var(--f-mono);color:var(--muted)}
@@ -61,7 +61,7 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 2px}
 a{color:var(--accent)}
 .meta{display:inline-flex;flex-wrap:wrap;gap:4px;margin-left:6px;vertical-align:middle}
 .chip{font:400 11px var(--f-mono);background:var(--chip);border-radius:4px;padding:1px 6px;color:var(--muted);white-space:nowrap}
-.chip.tag{color:var(--accent)} .chip.over{color:var(--warn)} .chip.ok{color:var(--done)}
+.chip.tag{background:hsl(var(--h,215) var(--tag-bg-s) var(--tag-bg-l));color:hsl(var(--h,215) var(--tag-fg-s) var(--tag-fg-l))} .chip.over{color:var(--warn)} .chip.ok{color:var(--done)}
 .more{background:none;border:0;color:var(--muted);cursor:pointer;padding:0 6px;border-radius:4px;font-size:18px;line-height:1}
 .more:hover{background:var(--chip)}
 .acts{grid-column:2/4;display:flex;flex-wrap:wrap;gap:6px;padding-bottom:4px}
@@ -78,6 +78,10 @@ a{color:var(--accent)}
 .filters .lab{margin:0 4px 0 0}
 .fbtn{font:400 12px var(--f-mono);background:var(--chip);border:1px solid transparent;border-radius:12px;padding:3px 10px;cursor:pointer;color:var(--muted)}
 .fbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.fbtn.t{background:hsl(var(--h) var(--tag-bg-s) var(--tag-bg-l));color:hsl(var(--h) var(--tag-fg-s) var(--tag-fg-l))}
+.fbtn.t[aria-pressed="true"]{box-shadow:0 0 0 2px hsl(var(--h) 60% 45%);font-weight:500}
+.hint{color:var(--muted);font-size:13px;margin:20px 0 0}
+a{overflow-wrap:anywhere}
 button.chip{border:0;cursor:pointer}
 .tagin{flex:1 1 180px;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:4px 8px}
 .empty{color:var(--muted);font-size:13px;padding:6px 0 2px}
@@ -109,10 +113,10 @@ table{border-collapse:collapse;width:100%}
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#12171f; --surface:#1a212c; --ink:#e6ebf2; --muted:#93a0b2; --line:#2b3442; --accent:#7ea2ff; --accent-ink:#0f1a33;
-  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; color-scheme:dark}}
+  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; --tag-bg-s:38%; --tag-bg-l:25%; --tag-fg-s:80%; --tag-fg-l:84%; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#12171f; --surface:#1a212c; --ink:#e6ebf2; --muted:#93a0b2; --line:#2b3442; --accent:#7ea2ff; --accent-ink:#0f1a33;
-  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; color-scheme:dark}
+  --mark:#5d4f14; --done:#5fc58c; --warn:#fb923c; --chip:#263041; --tag-bg-s:38%; --tag-bg-l:25%; --tag-fg-s:80%; --tag-fg-l:84%; color-scheme:dark}
 html{color-scheme:light dark}
 body{margin:0}[hidden]{display:none!important}
 *{box-sizing:border-box}
@@ -189,6 +193,7 @@ table{border-collapse:collapse;width:100%}
   <div id="banner"></div>
   <div id="filters" class="filters"></div>
   <main id="view"></main>
+  <p class="hint">Tipp: Mit [Name](https://…) versteckst du einen langen Link hinter einem Namen. Oder tippe bei einer Aufgabe auf „⋯“ und dann auf „Link benennen“.</p>
   <div class="backup"><span>Sicherung der Daten:</span><button class="btn" id="bk-save" type="button">Datei speichern</button><label class="btn" for="bk-load">Datei laden</label><input type="file" id="bk-load" accept="application/json,.json"><span id="bk-msg" role="status"></span></div>
 </div>
 
@@ -217,6 +222,9 @@ table{border-collapse:collapse;width:100%}
     return st;
   }
   function allTags(){ var r=[]; state.tasks.forEach(function(t){ (t.tags||[]).forEach(function(g){ if(r.indexOf(g)<0) r.push(g); }); }); return r.sort(function(a,b){return a.localeCompare(b,'de');}); }
+  var HUES=[212,158,28,332,268,188,46,0];
+  function hue(g){ var h=0; for(var i=0;i<g.length;i++) h=(h*31+g.charCodeAt(i))>>>0; return HUES[h%HUES.length]; }
+  var LINKRE=/(^|[^\]\(])(https?:\/\/[^\s)]+)/;
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
 
   document.getElementById('date').textContent =
@@ -275,13 +283,15 @@ table{border-collapse:collapse;width:100%}
   function dueRecurring(){ return state.tasks.filter(function(t){return t.list==='regel' && t.due && t.due<=TODAY;}); }
 
   function inline(text){
-    var s=esc(text);
+    var keep=[], s=esc(text);
+    function hold(html){ keep.push(html); return '\u0000'+(keep.length-1)+'\u0000'; }
+    s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,function(m,l,u){ return hold('<a href="'+u+'" target="_blank" rel="noopener">'+l+'</a>'); });
+    s=s.replace(/(https?:\/\/[^\s<\u0000]+)/g,function(u){
+      var tail=''; var m=u.match(/[.,;:!?)]+$/); if(m){ tail=m[0]; u=u.slice(0,u.length-tail.length); }
+      var host=u.replace(/^https?:\/\/(www\.)?/,'').split(/[\/?#]/)[0];
+      return hold('<a href="'+u+'" target="_blank" rel="noopener" title="'+u+'">'+host+'\u00a0↗</a>')+tail; });
     s=s.replace(/==(.+?)==/g,'<mark>$1</mark>');
-    s=s.replace(/(^|[\s>])#([\wäöüÄÖÜß-]+)/g,function(m,a,b){return a+'<span class="chip tag">#'+b+'</span>';});
-    s=s.replace(/(https?:\/\/[^\s<]+)/g,function(u){
-      var label=u.replace(/^https?:\/\//,''); if(label.length>44) label=label.slice(0,42)+'…';
-      return '<a href="'+u+'" target="_blank" rel="noopener">'+label+'</a>';});
-    return s;
+    return s.replace(/\u0000(\d+)\u0000/g,function(m,i){ return keep[+i]; });
   }
 
   function taskRow(t){
@@ -294,7 +304,7 @@ table{border-collapse:collapse;width:100%}
       if(t.repeat) h+='<span class="chip">↻ '+({day:'täglich',week:'wöchentlich',month:'monatlich'}[t.repeat])+'</span>';
       if(t.due){ var over=!t.done && t.due<TODAY; h+='<span class="chip'+(over?' over':'')+'">fällig '+fmt(t.due)+'</span>'; }
       if(t.done&&t.doneAt) h+='<span class="chip ok">✓ '+fmt(t.doneAt)+'</span>';
-      (t.tags||[]).forEach(function(g){ h+='<button class="chip tag" data-act="filter" data-tag="'+esc(g)+'" aria-label="Nach Tag '+esc(g)+' filtern">#'+esc(g)+'</button>'; });
+      (t.tags||[]).forEach(function(g){ h+='<button class="chip tag" style="--h:'+hue(g)+'" data-act="filter" data-tag="'+esc(g)+'" aria-label="Nach Tag '+esc(g)+' filtern">#'+esc(g)+'</button>'; });
       h+='</span></div>';
       h+='<button class="more" data-act="more" aria-label="Aktionen" aria-expanded="'+(ui.open===t.id)+'">⋯</button>';
     }
@@ -305,6 +315,7 @@ table{border-collapse:collapse;width:100%}
       if(t.list!=='next'&&t.list!=='regel') h+='<button data-act="move" data-to="next">→ Next steps</button>';
       if(t.list!=='warten'&&t.list!=='regel'&&t.list!=='thema') h+='<button data-act="move" data-to="warten">→ Warten auf</button>';
       h+='<button data-act="tags">Tags</button>';
+      if(LINKRE.test(t.text)) h+='<button data-act="link">Link benennen</button>';
       h+='<button data-act="due">'+(t.due?'Fälligkeit ändern':'Fälligkeit setzen')+'</button>';
       if(t.list==='regel') h+='<button data-act="cycle">Rhythmus wechseln</button>';
       h+='<button class="danger" data-act="del">Löschen</button></div>';
@@ -402,7 +413,7 @@ table{border-collapse:collapse;width:100%}
     var hasEx=state.tasks.some(function(t){return t.ex;});
     document.getElementById('banner').innerHTML = hasEx ? '<div class="banner"><span>Das sind Beispieldaten. Überschreibe sie oder lösche sie mit einem Klick.</span><button class="btn" data-act="clearEx">Beispiele löschen</button></div>' : '';
     var tg=allTags(); if(ui.filter&&tg.indexOf(ui.filter)<0) ui.filter=null;
-    document.getElementById('filters').innerHTML = tg.length ? '<span class="lab">Tags</span><button class="fbtn" data-act="filter" data-tag="" aria-pressed="'+(!ui.filter)+'">alle</button>'+tg.map(function(g){return '<button class="fbtn" data-act="filter" data-tag="'+esc(g)+'" aria-pressed="'+(ui.filter===g)+'">#'+esc(g)+'</button>';}).join('') : '';
+    document.getElementById('filters').innerHTML = tg.length ? '<span class="lab">Tags</span><button class="fbtn" data-act="filter" data-tag="" aria-pressed="'+(!ui.filter)+'">alle</button>'+tg.map(function(g){return '<button class="fbtn t" style="--h:'+hue(g)+'" data-act="filter" data-tag="'+esc(g)+'" aria-pressed="'+(ui.filter===g)+'">#'+esc(g)+'</button>';}).join('') : '';
     var v=document.getElementById('view');
     v.innerHTML = ui.tab==='tag'?viewTag(): ui.tab==='warten'?viewWarten(): ui.tab==='thema'?viewThemen(): ui.tab==='regel'?viewRegel(): viewErledigt();
     if(ui.edit){ var e=document.getElementById('edit-'+ui.edit); if(e){ e.focus(); e.setSelectionRange(e.value.length,e.value.length);} }
@@ -419,6 +430,7 @@ table{border-collapse:collapse;width:100%}
     if(act==='toggleDone'){ ui.showDone=!ui.showDone; savePref(); render(); }
     else if(act==='filter'){ ui.filter = (b.dataset.tag && ui.filter!==b.dataset.tag) ? b.dataset.tag : null; render(); }
     else if(act==='tags'){ askTags(t); }
+    else if(act==='link'){ askLink(t); }
     else if(act==='more'){ ui.open=ui.open===id?null:id; render(); }
     else if(act==='edit'){ ui.edit=id; render(); }
     else if(act==='move'){ change(function(){ t.list=b.dataset.to; if(t.list==='warten'&&!t.group) t.group='Sonstiges'; ui.open=null; }); }
@@ -481,6 +493,15 @@ table{border-collapse:collapse;width:100%}
     var inp=document.getElementById('tag-in'); inp.focus(); inp.setSelectionRange(inp.value.length,inp.value.length);
     function done(){ var v=inp.value.split(',').map(function(x){return x.trim().replace(/^#/,'').replace(/\s+/g,'-');}).filter(Boolean); change(function(){ t.tags=merge([],v); ui.open=null; }); }
     document.getElementById('tag-ok').onclick=done;
+    inp.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); done(); } };
+  }
+  function askLink(t){
+    var box=document.querySelector('.task[data-id="'+t.id+'"] .acts'); if(!box) return;
+    box.innerHTML='<input id="link-in" class="tagin" placeholder="Name für den Link, z. B. Notion-Seite" aria-label="Name für den Link" autocomplete="off"> <button class="btn primary" id="link-ok">Speichern</button>';
+    var inp=document.getElementById('link-in'); inp.focus();
+    function done(){ var n=inp.value.trim().replace(/[\[\]]/g,''); if(!n){ ui.open=null; render(); return; }
+      change(function(){ t.text=t.text.replace(LINKRE,function(m,a,u){ return a+'['+n+']('+u+')'; }); ui.open=null; }); }
+    document.getElementById('link-ok').onclick=done;
     inp.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); done(); } };
   }
   function askDue(t){

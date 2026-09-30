@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: Kopfzeile mit Reitern, Übersichtszeile, darunter einklappbare Karten untereinander (Eingang, Heute, Diese Woche); Warten auf nach Gruppen, Themen nach Kürzel. */
+/* Layout: Kopfzeile mit Reitern, darunter einklappbare Karten untereinander (Eingang, Heute, Diese Woche); Warten auf nach Gruppen, Themen nach Kürzel. */
 :root{
   --bg:#e8f2fd; --surface:#ffffff; --ink:#1a2330; --muted:#52677e; --line:#cbddf1;
   --accent:#2c59d6; --accent-ink:#ffffff; --mark:#fbe69a; --done:#2b8a57; --warn:#c2410c; --chip:#d9e8f8; --tag-bg-s:80%; --tag-bg-l:89%; --tag-fg-s:60%; --tag-fg-l:26%;
@@ -369,8 +369,6 @@ table{border-collapse:collapse;width:100%}
   function viewTag(){
     var due=dueRecurring();
     if(ui.filter) due=due.filter(function(t){ return (t.tags||[]).indexOf(ui.filter)>=0; });
-    var wa=countOpen('warten'), th=countOpen('thema'), rg=dueRecurring().length;
-    var strip='<div class="strip"><button class="fbtn" data-tab="warten">Warten auf<b>'+wa+'</b></button><button class="fbtn" data-tab="thema">Themen offen<b>'+th+'</b></button><button class="fbtn" data-tab="regel">Regelmäßig fällig<b>'+rg+'</b></button></div>';
     function card(l,title,ph){
       var key='c-'+l, body='';
       if(!folded(key)){
@@ -379,7 +377,7 @@ table{border-collapse:collapse;width:100%}
       }
       return '<section class="card">'+head(key,title,countOpen(l)+' offen')+body+'</section>';
     }
-    return strip+'<div class="grid">'+card('eingang','Eingang','Neu im Eingang …')+card('heute','Heute','Für heute …')+card('next','Diese Woche','Für diese Woche …')+'</div>';
+    return '<div class="grid">'+card('eingang','Eingang','Neu im Eingang …')+card('heute','Heute','Für heute …')+card('next','Diese Woche','Für diese Woche …')+'</div>';
   }
 
   function viewWarten(){
